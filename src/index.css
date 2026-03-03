@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-dark font-sans antialiased overflow-x-hidden;
+  }
+}
+
+@layer utilities {
+  .clip-text {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+/* Global Noise Overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.05;
+}
+
+/* Magnetic Button Base (Handled mostly via GSAP but useful to specify cursor/transitions here) */
+.magnetic-btn {
+  @apply relative overflow-hidden inline-flex items-center justify-center cursor-pointer;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.magnetic-btn:hover {
+  transform: scale(1.03);
+}
+
+.magnetic-btn::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--btn-hover-bg, theme('colors.accent'));
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 0;
+}
+
+.magnetic-btn:hover::before {
+  transform: translateY(-100%);
+}
+
+.magnetic-btn-text {
+  position: relative;
+  z-index: 1;
+}
+
+/* Feature Cards Base */
+.feature-card {
+  @apply bg-primary rounded-[2rem] border border-dark/10 shadow-lg p-8 relative overflow-hidden;
+}
