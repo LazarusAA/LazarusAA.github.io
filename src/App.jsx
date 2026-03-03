@@ -245,14 +245,14 @@ function BridgeScheduler() {
       const tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
       tl.to('.anim-cursor', { x: 50, y: 30, duration: 1, ease: 'power2.inOut' })
         .to('.anim-cursor', { scale: 0.8, duration: 0.1, ease: 'power1.in' }) // Click
-        .to('.day-cell-3', { backgroundColor: '#E63B2E', color: '#F5F3EE', duration: 0.1 })
+        .to('.day-cell-0', { backgroundColor: '#E63B2E', color: '#F5F3EE', duration: 0.1 })
         .to('.anim-cursor', { scale: 1, duration: 0.1, ease: 'power1.out' }) // Release
         .to('.anim-cursor', { x: 180, y: 80, duration: 1, ease: 'power2.inOut', delay: 0.5 })
         .to('.anim-cursor', { scale: 0.8, duration: 0.1, ease: 'power1.in' }) // Click save
         .to('.save-btn', { backgroundColor: '#E63B2E', color: '#F5F3EE', duration: 0.1 })
         .to('.anim-cursor', { scale: 1, duration: 0.1, ease: 'power1.out' })
         .to('.anim-cursor', { opacity: 0, duration: 0.5, delay: 0.5 })
-        .set('.day-cell-3', { backgroundColor: 'transparent', color: 'inherit' })
+        .set('.day-cell-0', { backgroundColor: 'transparent', color: 'inherit' })
         .set('.save-btn', { backgroundColor: 'transparent', color: 'inherit' })
         .set('.anim-cursor', { x: 0, y: 0, opacity: 1 });
     }, gridRef);
@@ -427,22 +427,13 @@ function Protocol() {
       title: 'Agentic Deployment',
       desc: 'Deploying autonomous agents to optimize and scale operational output.',
       Anim: () => (
-        <div className="absolute inset-0 flex flex-col justify-between opacity-20 py-10">
-          {[...Array(5)].map((_, i) => (
-            <div key={i} className="w-full h-px bg-currentColor relative overflow-hidden">
-              <div
-                className="absolute top-0 left-0 w-1/3 h-full bg-accent blur-sm"
-                style={{
-                  animation: `scan 3s linear infinite`,
-                  animationDelay: `${i * 0.5}s`
-                }}
-              />
-            </div>
-          ))}
-          <style dangerouslySetInnerHTML={{
-            __html: `
-            @keyframes scan { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
-          `}} />
+        <div className="absolute inset-0 flex items-center justify-center opacity-20 overflow-hidden">
+          <svg viewBox="0 0 100 100" className="w-[150%] h-[150%] animate-[spin_30s_linear_infinite]">
+             <rect x="25" y="25" width="50" height="50" fill="none" stroke="currentColor" strokeWidth="0.2" className="animate-[spin_10s_linear_infinite_reverse] origin-center" />
+             <polygon points="50,15 85,85 15,85" fill="none" stroke="currentColor" strokeWidth="0.2" className="animate-[spin_15s_linear_infinite] origin-center" />
+             <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" strokeWidth="0.1" strokeDasharray="2 4" />
+             <circle cx="50" cy="50" r="15" fill="none" stroke="#E63B2E" strokeWidth="0.5" className="animate-pulse" />
+          </svg>
         </div>
       )
     },
@@ -452,18 +443,27 @@ function Protocol() {
       desc: 'Feedback loops driving exponential growth across physical borders.',
       Anim: () => (
         <div className="absolute inset-0 flex items-center justify-center opacity-20 overflow-hidden">
-          <svg viewBox="0 0 100 20" className="w-full h-full stroke-currentColor" strokeWidth="0.2" fill="none">
+          <svg viewBox="0 0 100 40" className="w-[120%] h-full stroke-current" strokeWidth="0.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path
-              d="M0 10 L30 10 L35 0 L40 20 L45 0 L50 20 L55 5 L60 10 L100 10"
-              className="dash-anim"
+              d="M 0 20 L 25 20 C 28 20 30 15 32 10 C 34 5 36 35 38 35 C 40 35 42 18 45 20 L 55 20 C 58 20 60 15 62 10 C 64 5 66 35 68 35 C 70 35 72 18 75 20 L 100 20"
+              className="waveform-anim"
               strokeDasharray="100"
               strokeDashoffset="100"
+            />
+            <path
+              d="M 0 20 L 25 20 C 28 20 30 15 32 10 C 34 5 36 35 38 35 C 40 35 42 18 45 20 L 55 20 C 58 20 60 15 62 10 C 64 5 66 35 68 35 C 70 35 72 18 75 20 L 100 20"
+              stroke="#E63B2E"
+              strokeWidth="1.5"
+              className="waveform-pulse opacity-0"
+              filter="blur(2px)"
             />
           </svg>
           <style dangerouslySetInnerHTML={{
             __html: `
-            .dash-anim { animation: dash 2s linear infinite; }
-            @keyframes dash { to { stroke-dashoffset: 0; } }
+            .waveform-anim { animation: waveform-dash 3s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+            .waveform-pulse { animation: waveform-glow 3s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+            @keyframes waveform-dash { 0% { stroke-dashoffset: 100; } 50% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -100; } }
+            @keyframes waveform-glow { 0%, 30% { opacity: 0; } 45%, 55% { opacity: 0.8; } 70%, 100% { opacity: 0; } }
           `}} />
         </div>
       )
